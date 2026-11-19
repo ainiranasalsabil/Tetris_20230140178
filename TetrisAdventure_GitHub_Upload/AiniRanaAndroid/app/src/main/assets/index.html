@@ -31,7 +31,28 @@
   </style>
 
   <!-- Library p5.js -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+  <script>
+  function loadP5(url, fallback) {
+    const script = document.createElement("script");
+    script.src = url;
+
+    script.onerror = function () {
+      if (fallback) {
+        loadP5(fallback, null);
+      } else {
+        document.body.innerHTML =
+          "<h2>Gagal memuat p5.js</h2><p>Periksa koneksi internet kamu.</p>";
+      }
+    };
+
+    document.head.appendChild(script);
+  }
+
+  loadP5(
+    "https://cdn.jsdelivr.net/npm/p5@1.9.0/lib/p5.min.js",
+    "https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"
+  );
+</script>
 </head>
 
 <body>
